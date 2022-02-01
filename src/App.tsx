@@ -1,45 +1,31 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from "react";
+
+import * as React from "react";
+import MapGL, { Marker } from "react-map-gl";
+
+const MAPBOX_TOKEN =
+  "pk.eyJ1IjoiamltcGZyZWQiLCJhIjoiY2twNHU2bzJyMjNzZzJ1cXcweTN6azMyZSJ9.EL6OH1RDBnamvnIFj9tmXw";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [viewport, setViewport] = useState({
+    latitude: 37.5426,
+    longitude: 126.981622,
+    zoom: 11,
+    pitch: 30
+  });
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <MapGL
+        {...viewport}
+        width="100vw"
+        height="100vh"
+        mapStyle="mapbox://styles/jimpfred/ckpyoslp90u5k17s23zytp443"
+        onViewStateChange={setViewport}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+      />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
